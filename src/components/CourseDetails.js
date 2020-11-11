@@ -86,7 +86,7 @@ export class CourseDetails extends Component {
         const data = await response.json();
         this.setState({ tricks: data, loading: false });
         this.state.tricks = data;
-        consol.log(data);
+        conso.log(data);
     }
 
 
