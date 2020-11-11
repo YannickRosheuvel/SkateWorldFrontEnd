@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router';
+import { Layout } from './components/Layout';
+import { Home } from './components/Home';
+import { CourseItem } from './components/CourseItem';
+import { CourseDetails } from './components/CourseDetails';
+import './custom.css'
+import { PageNotFound } from './components/PageNotFound';
+import { Login } from './components/Login';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    static displayName = App.name;
+    state = {
+        name: 'Yannick'
+    }
+
+  render () {
+    return (
+        <Layout>
+            <Switch>
+                <Home name={this.state.name} exact path='/'/>
+                <Route  path='/courses' component={CourseItem} />
+                <Route path='/coursedetails/:id' component={CourseDetails} />
+                <Route path='/login' component={Login} />
+            <Route component={PageNotFound} />
+            </Switch>
+      </Layout>
+    );
+  }
 }
-
-export default App;
