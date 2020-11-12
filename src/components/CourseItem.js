@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ReactPlayer from 'react-player'
 
 export class CourseItem extends Component {
     static displayName = CourseItem.name;
@@ -50,7 +49,6 @@ export class CourseItem extends Component {
             <div>
                 <h1 id="tabelLabel" >Courses</h1>
                 {contents}
-                <button onClick={this.xp }></button>
             </div>
         );
     }

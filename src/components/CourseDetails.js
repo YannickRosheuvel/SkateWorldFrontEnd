@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
+import { Redirect, useHistory } from 'react-router-dom'
 
 export class CourseDetails extends Component {
     static displayName = CourseDetails.name;
@@ -10,7 +11,6 @@ export class CourseDetails extends Component {
     }
 
     componentDidMount() {
-
         this.populateTricksData();
         this.populateCourseData();
     }
@@ -34,12 +34,12 @@ export class CourseDetails extends Component {
                 trickNumber: this.state.trickNumber + 1
             })
 
-            if(this.state.buttonText == "Complete course"){
+            if(this.state.buttonText === "Complete course"){
+                this.props.history.push('/courses')
                 alert("Course completed");
-                
             }
 
-            if(this.state.trickNumber == this.state.tricks.length - 2){
+            if(this.state.trickNumber === this.state.tricks.length - 2){
                 this.setState({
                     buttonText: "Complete course"
                 })
@@ -48,11 +48,11 @@ export class CourseDetails extends Component {
         console.log(this.state.trickNumber);
     }
 
-    getCourse(course, tricks, trickNumber) {
+    getCourse(course, tricks) {
         return (
             <div>
                 <h1 id="tabelLabel" >{course.name}</h1>
-                <ReactPlayer controls url={tricks[this.state.trickNumber].videoPath} />
+                <ReactPlayer width='370px' height='205px' controls url={tricks[this.state.trickNumber].videoPath} />
                 <em>{tricks[this.state.trickNumber].description}</em>
             </div>
         )

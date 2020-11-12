@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export class Login extends Component {
     static displayName = Login.name;
@@ -26,7 +27,7 @@ export class Login extends Component {
         axios.post('https://localhost:44355/api/user/{id}/login', { emailadress: this.state.emailadress, password: this.state.password })
             .then(response =>
             {
-                if (response.data.id != 0) {
+                if (response.data.id !== 0) {
                     alert("Login succesfull!")
                 }
             console.log(response)
@@ -53,6 +54,9 @@ export class Login extends Component {
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div>
                 <button type="submit"  class="btn btn-primary">Submit</button>
+                <td><Link to={{
+                                pathname: '/register',
+                            }}>Register</Link></td>
             </form>
         );
     }
