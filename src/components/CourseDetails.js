@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
 import { Redirect, useHistory } from 'react-router-dom'
+import axios from 'axios';
 
 export class CourseDetails extends Component {
     static displayName = CourseDetails.name;
 
     constructor(props) {
         super(props);
-        this.state = { course: [], loading: true, tricks: [], trickNumber: 0, user: Number, buttonText: "Next trick" };
+        this.state = { course: [], loading: true, tricks: [], trickNumber: 0, user: Number, buttonText: "Next trick", courseCompleted: false };
     }
 
     componentDidMount() {
@@ -35,6 +36,21 @@ export class CourseDetails extends Component {
             })
 
             if(this.state.buttonText === "Complete course"){
+
+                
+                axios.put('https://localhost:44355/api/course/' + this.props.match.params.id + '/complete')
+                    .then(response =>
+                    {
+                    //     if (response.data.id !== 0) {
+                    //         alert("Login succesfull!")
+                    //     }
+                    // console.log(response)
+                    console.log("hey");
+                })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
                 this.props.history.push('/courses')
                 alert("Course completed");
             }

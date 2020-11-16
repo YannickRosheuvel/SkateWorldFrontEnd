@@ -30,6 +30,9 @@ export class Login extends Component {
                 if (response.data.id !== 0) {
                     alert("Login succesfull!")
                 }
+                else{
+                    alert("login failed, please try again.")
+                }
             console.log(response)
         })
             .catch(error => {

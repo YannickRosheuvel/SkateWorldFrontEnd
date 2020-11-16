@@ -8,7 +8,7 @@ import './custom.css'
 import { PageNotFound } from './components/PageNotFound';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
-import { CommentSection } from './components/CommentSection';
+import  Chat  from './components/Chat';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -25,7 +25,7 @@ export default class App extends Component {
                 <Route path='/coursedetails/:id' component={CourseDetails} />
                 <Route path='/login' component={Login} />
                 <Route path='/Register' component={Register} />
-                <Route path='/CommentSection' component={CommentSection} />
+                <Route path='/Chat' component={Chat} />
             <Route component={PageNotFound} />
             </Switch>
       </Layout>
