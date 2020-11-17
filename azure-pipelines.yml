@@ -24,5 +24,4 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: 'SkateWorldFrontend'
     customCommand: 'npm run test'
