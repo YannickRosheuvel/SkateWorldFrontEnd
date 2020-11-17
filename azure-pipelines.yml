@@ -24,4 +24,5 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    customCommand: 'npm test'
+    workingDir: '@(Build.SourceDirectory)/SkateWorldFrontend/src'
+    customCommand: 'npm test a'
