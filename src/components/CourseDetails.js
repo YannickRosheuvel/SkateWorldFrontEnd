@@ -15,8 +15,9 @@ export class CourseDetails extends Component {
         this.populateTricksData();
         this.populateCourseData();
     }
+ 
 
-    previousTrick = () => {
+     previousTrick = () => {
 
         if (this.state.trickNumber - 1 >= 0)
             this.setState({
@@ -41,11 +42,7 @@ export class CourseDetails extends Component {
                 axios.put('https://localhost:44355/api/course/' + this.props.match.params.id + '/complete')
                     .then(response =>
                     {
-                    //     if (response.data.id !== 0) {
-                    //         alert("Login succesfull!")
-                    //     }
-                    // console.log(response)
-                    console.log("hey");
+                    console.log(response)
                 })
                     .catch(error => {
                         console.log(error)

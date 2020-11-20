@@ -37,12 +37,6 @@ const Chat = () => {
         };
 
         try {
-            // await  fetch('https://localhost:44366/api/comment/messages', { 
-            //     method: 'POST', 
-            //     body: JSON.stringify(chatMessage),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
 
         axios.post('https://localhost:44366/api/comment/messages', { message: chatMessage.message, user: chatMessage.user })
             .then(response =>
