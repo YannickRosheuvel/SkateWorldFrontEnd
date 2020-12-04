@@ -3,6 +3,8 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 import axios from 'axios';
 import ChatWindow from './ChatWindow';
 import ChatInput from './ChatInput';
+import http,{sendMessageApi} from "./APIRequests/http"
+
 
 const Chat = () => {
     const [ chat, setChat ] = useState([]);
@@ -30,19 +32,14 @@ const Chat = () => {
             .catch(e => console.log('Connection failed: ', e));
     }, []);
 
-    const sendMessage = async (user, message) => {
+    const sendMessage = async (message) => {
         const chatMessage = {
-            user: user,
             message: message
         };
 
         try {
-
-        axios.post('https://localhost:44366/api/comment/messages', { message: chatMessage.message, user: chatMessage.user })
-            .then(response =>
-            {
-            console.log(response)
-            });
+            
+            sendMessageApi(chatMessage.message);
         }
         catch(e) {
             console.log('Sending message failed.', e);

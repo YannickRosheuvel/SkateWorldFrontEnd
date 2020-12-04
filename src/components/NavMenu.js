@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Redirect } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './NavMenu.css';
 
-export class NavMenu extends Component {
+class NavMenu extends Component {
   static displayName = NavMenu.name;
 
   constructor (props) {
@@ -15,6 +15,18 @@ export class NavMenu extends Component {
     };
   }
 
+  CheckUser(props){
+    if(localStorage.getItem("user") === null){
+      this.props.history.push('./Login')
+    }
+    console.log(localStorage.getItem("user"));
+    console.log(props);
+  }
+
+  componentDidMount() {
+    this.CheckUser();
+  }
+
   toggleNavbar () {
     this.setState({
       collapsed: !this.state.collapsed
@@ -24,7 +36,7 @@ export class NavMenu extends Component {
   render () {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+        <Navbar onClick={this.CheckUser} className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
             <NavbarBrand tag={Link} to="/">SkateWorld</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -50,3 +62,5 @@ export class NavMenu extends Component {
     );
   }
 }
+
+export default withRouter(NavMenu)

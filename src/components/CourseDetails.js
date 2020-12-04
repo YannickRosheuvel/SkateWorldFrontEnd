@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
 import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios';
+import Chat from './Chat';
 
 export class CourseDetails extends Component {
     static displayName = CourseDetails.name;
@@ -29,6 +30,12 @@ export class CourseDetails extends Component {
         console.log(this.state.trickNumber);
     }
 
+    async xp() {
+        const response = await fetch('https://localhost:44355/api/user/' + 5 + '/xp');
+        const data = await response.json();
+        console.log(data);
+    }
+
     nextTrick = () => {
 
         if (this.state.trickNumber + 1 < this.state.tricks.length)
@@ -38,18 +45,23 @@ export class CourseDetails extends Component {
 
             if(this.state.buttonText === "Complete course"){
 
+                this.xp();
                 
                 axios.put('https://localhost:44355/api/course/' + this.props.match.params.id + '/complete')
                     .then(response =>
                     {
                     console.log(response)
+                    if(response.status === 200){
+                        this.props.history.push('/courses')
+                        alert("Course completed");
+                    }
+
                 })
                     .catch(error => {
                         console.log(error)
                     })
 
-                this.props.history.push('/courses')
-                alert("Course completed");
+
             }
 
             if(this.state.trickNumber === this.state.tricks.length - 2){
@@ -72,6 +84,7 @@ export class CourseDetails extends Component {
 
     }
     
+    
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
@@ -81,6 +94,7 @@ export class CourseDetails extends Component {
             <form>
             
                 {contents}
+                <Chat></Chat>
                 <button type="button" onClick={this.previousTrick} class="btn btn-outline-primary">Previous trick</button>
                 <button type="button" onClick={this.nextTrick} class="btn btn-outline-primary" >{this.state.buttonText}</button>
             </form>

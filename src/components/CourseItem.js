@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Redirect } from 'react';
 import { Link } from 'react-router-dom';
 
 export class CourseItem extends Component {
@@ -11,6 +11,21 @@ export class CourseItem extends Component {
 
     componentDidMount() {
         this.populateCourseData();
+    }
+
+    static CompletedOrNot = (completed) => {
+        if(completed == true){
+            return                             <td>
+            <span font-size= "20px" style={{ color: 'green' }} styles='font-size:100px;'>&#9745;</span>
+                 completed
+            </td>
+        }
+        else{
+            return             <td>
+            <span font-size= "20px" style={{ color: 'red' }} styles='font-size:100px;'>&#9744;</span>
+             uncompleted
+            </td>
+        }
     }
 
     static renderCourseTable(courses) {
@@ -30,8 +45,13 @@ export class CourseItem extends Component {
                                 state: {
                                     coursename: 'course name'
                                 }
+                                
 
                             }}>Go to {course.name}</Link></td>
+
+                            {this.CompletedOrNot(course.completed)}
+
+
                             
                         </tr>
                     )}
@@ -60,9 +80,5 @@ export class CourseItem extends Component {
         console.log(data);
     }
 
-    async xp() {
-        const response = await fetch('https://localhost:44355/api/user/' + 5 + '/xp');
-        const data = await response.json();
-        console.log(data);
-    }
+
 }

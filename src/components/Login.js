@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { setSourceMapRange } from 'typescript';
 
 export class Login extends Component {
     static displayName = Login.name;
@@ -28,6 +29,7 @@ export class Login extends Component {
             .then(response =>
             {
                 if (response.data.id !== 0) {
+                    localStorage.setItem('user', response.data.id);
                     alert("Login succesfull!")
                 }
                 else{
@@ -45,18 +47,14 @@ export class Login extends Component {
             <form onSubmit={this.handleSubmit}>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" onChange={this.handleInputChange } name="emailadress" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                    <input data-testid="email" type="email" onChange={this.handleInputChange } name="emailadress" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" name="password" onChange={this.handleInputChange} class="form-control" id="exampleInputPassword1" />
+                    <input data-testid="password" type="password" name="password" onChange={this.handleInputChange} class="form-control" id="exampleInputPassword1" />
                 </div>
-                <div class="form-group form-check">
-                    <input type="checkbox"  class="form-check-input" id="exampleCheck1" />
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit"  class="btn btn-primary">Submit</button>
+                <button data-testid="loginButton" type="submit"  class="btn btn-primary">Submit</button>
                 <td><Link to={{
                                 pathname: '/register',
                             }}>Register</Link></td>

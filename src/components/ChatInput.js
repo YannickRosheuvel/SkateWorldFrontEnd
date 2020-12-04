@@ -7,11 +7,10 @@ const ChatInput = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
 
-        if (isUserProvided && isMessageProvided) {
-            props.sendMessage(user, message);
+        if (isMessageProvided) {
+            props.sendMessage(message);
             e.target.reset();
         } 
         else {
@@ -30,14 +29,6 @@ const ChatInput = (props) => {
     return (
         <form 
             onSubmit={onSubmit}>
-            <label htmlFor="user">User:</label>
-            <br />
-            <input data-testid="user"
-                id="user" 
-                name="user" 
-                value={user}
-                onChange={onUserUpdate} />
-            <br/>
             <label htmlFor="message">Message:</label>
             <br />
             <input data-testid="message"
