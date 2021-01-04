@@ -1,12 +1,16 @@
 import React, { Component, Redirect } from 'react';
 import { Link } from 'react-router-dom';
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+  } from 'reactstrap';
 
 export class CourseItem extends Component {
     static displayName = CourseItem.name;
 
     constructor(props) {
         super(props);
-        this.state = { courses: [], loading: true, courseCount: 0 };
+        this.state = { courses: [], loading: true, courseCount: 0, error: false };
     }
 
     componentDidMount() {
@@ -16,7 +20,7 @@ export class CourseItem extends Component {
     static CompletedOrNot = (completed) => {
         if(completed == true){
             return                             <td>
-            <span font-size= "20px" style={{ color: 'green' }} styles='font-size:100px;'>&#9745;</span>
+            <span data-testid='green' font-size= "20px" style={{ color: 'green' }} styles='font-size:100px;'>&#9745;</span>
                  completed
             </td>
         }
@@ -30,16 +34,19 @@ export class CourseItem extends Component {
 
     static renderCourseTable(courses) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Course</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {courses.map(course =>
+
+            <div>
+                
+      
+        {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
+
+            {courses.map(course =>
                         <tr key={course.name}>
-                            <td>{course.id}</td>
+                            <Card>
+                                    <CardBody>
+                            <CardTitle tag="h5">{course.name}</CardTitle>
+                            <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+                            <Button>Button</Button>
                             <td>{course.name} <Link to={{
                                 pathname: '/coursedetails/' + course.id,
                                 state: {
@@ -52,11 +59,14 @@ export class CourseItem extends Component {
                             {this.CompletedOrNot(course.completed)}
 
 
-                            
+                            </CardBody>
+                            </Card>
+                            <p></p>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                        
+                        
+                    )}     
+            </div>
         );
     }
 
@@ -65,19 +75,29 @@ export class CourseItem extends Component {
             ? <p><em>Loading...</em></p>
             : CourseItem.renderCourseTable(this.state.courses);
 
+            let error = this.state.error
+            ? <p>there was a problem with the connection.</p>
+            : <p></p>
+
         return (
             <div>
                 <h1 id="tabelLabel" >Courses</h1>
                 {contents}
+                {error}
             </div>
         );
     }
 
     async populateCourseData() {
-        const response = await fetch('https://localhost:44355/api/course');
-        const data = await response.json();
-        this.setState({ courses: data, loading: false });
-        console.log(data);
+        try{
+            const response = await fetch('https://localhost:44355/api/course');
+            const data = await response.json();
+            this.setState({ courses: data, loading: false });
+            console.log(data);
+        }
+        catch{
+            this.setState({ error: true});
+        }
     }
 
 

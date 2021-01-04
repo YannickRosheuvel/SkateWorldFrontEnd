@@ -1,12 +1,14 @@
 
-import {fireEvent, getByText, render} from "@testing-library/react";
+import {fireEvent, getByTestId, getByText, render} from "@testing-library/react";
 import * as react from "react";
 import ChatWindow from "./components/ChatWindow";
 import Chat from "./components/Chat";
+import {Register} from "./components/Register";
 import {Login} from "./components/Login";
 import { CourseDetails } from "./components/CourseDetails";
 import {Home} from "./components/Home";
 import {http} from "./components/APIRequests/http"
+import {CourseItem} from "./components/CourseItem";
 
 jest.mock(http);
 
@@ -17,19 +19,17 @@ test('add', () => {
 });
 
 test('renders correct content', () => {
-    const {getByText} = render(<Home/>);
+    const {getByText, getByTestId} = render(<Home/>);
 
-    getByText("Welcome back !")
+    getByTestId("loading")
 })
 
 test('sending message', () => {
-    const {getByTestId, getByText} = render(<Chat/>)
+    const {getByTestId} = render(<Chat/>)
     
     const btn = getByTestId("button1")
-    const inpUser = getByTestId("user")
     const inpMessage = getByTestId("message")
 
-    fireEvent.change(inpUser, {target: {value: "user"}})
     fireEvent.change(inpMessage, {target: {value: "message"}})
 
     fireEvent.click(btn)
@@ -37,20 +37,30 @@ test('sending message', () => {
 
 })
 
-test('Login', () => {
-    const {getByTestId, getByText} = render(<Login/>)
+
+test('validation', () => {
+
+    const {getByTestId} = render(<Register/>)
+
+    // const inpMessage = getByTestId("message");
     
-    const btn = getByTestId("loginButton")
-    const inpEmail = getByTestId("email")
-    const inpPassword = getByTestId("password")
 
-    fireEvent.change(inpEmail, {target: {value: "user"}})
-    fireEvent.change(inpPassword, {target: {value: "password"}})
-
-    fireEvent.click(btn)
-
-    
 })
+
+// test('validation', () => {
+//     const {getByTestId} = render(<Login/>)
+    
+//     const btn = getByTestId("loginButton")
+//     const inpEmail = getByTestId("email")
+//     const inpPassword = getByTestId("password")
+
+//     fireEvent.change(inpEmail, {target: {value: "user"}})
+//     fireEvent.change(inpPassword, {target: {value: "password"}})
+
+//     fireEvent.click(btn)
+
+// })
+
 
 // test('register', () => {
 //     const {getByTestId, getByText} = render(<Login/>)

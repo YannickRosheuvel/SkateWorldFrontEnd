@@ -24,7 +24,6 @@ export class CourseDetails extends Component {
             this.setState({
                 trickNumber: this.state.trickNumber - 1,
                 buttonText: "Next Trick"
-
             })
 
         console.log(this.state.trickNumber);
@@ -77,8 +76,10 @@ export class CourseDetails extends Component {
         return (
             <div>
                 <h1 id="tabelLabel" >{course.name}</h1>
+                <hr></hr>
                 <ReactPlayer width='370px' height='205px' controls url={tricks[this.state.trickNumber].videoPath} />
                 <em>{tricks[this.state.trickNumber].description}</em>
+                <hr></hr>
             </div>
         )
 
@@ -92,7 +93,6 @@ export class CourseDetails extends Component {
 
         return (
             <form>
-            
                 {contents}
                 <Chat></Chat>
                 <button type="button" onClick={this.previousTrick} class="btn btn-outline-primary">Previous trick</button>

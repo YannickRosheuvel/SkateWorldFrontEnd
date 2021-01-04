@@ -10,6 +10,7 @@ import { Login } from './components/Login';
 import { Register } from './components/Register';
 import  Chat  from './components/Chat';
 import {UserContext} from "./components/UserContext"
+import ErrorBoundary from "./components/ErrorBoundary"
 
 export default class App extends Component {
     static displayName = App.name;
@@ -17,10 +18,13 @@ export default class App extends Component {
         name: 'Yannick'
     }
 
+    
+
   render () {
     return (
-        <Layout>
+        <Layout  >
               <UserContext.Provider value="Welcome Yannick">
+                <ErrorBoundary>
               <Switch>
                 <Home name={this.state.name} exact path='/'/>
                 <Route  path='/courses' component={CourseItem} />
@@ -30,6 +34,7 @@ export default class App extends Component {
                 <Route path='/Chat' component={Chat} />
                 <Route component={PageNotFound} />
                 </Switch>
+                </ErrorBoundary>
             </UserContext.Provider>
       </Layout>
     );

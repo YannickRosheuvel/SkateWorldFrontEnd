@@ -32,13 +32,14 @@ const ChatInput = (props) => {
             <label htmlFor="message">Message:</label>
             <br />
             <input data-testid="message"
+                class="form-control"
                 type="text"
                 id="message"
                 name="message" 
                 value={message}
                 onChange={onMessageUpdate} />
             <br/><br/>
-            <button data-testid="button1">Submit</button>
+            <button data-testid="button1" type="submit" class="btn btn-outline-primary">Submit</button>
         </form>
     )
 };

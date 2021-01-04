@@ -42,7 +42,7 @@ export class Register extends Component {
         lastNameError = "can only contain letters"
       }
 
-      if(this.state.password.length < 10){
+      if(this.state.password.length < 5){
         passwordError = "Password is not long enough"
       }
 
@@ -76,7 +76,7 @@ export class Register extends Component {
       if(isValid){
         console.log("hello")
         axios.post('https://localhost:44355/api/user/{id}/register', {username: this.state.username, firstName: this.state.firstName, lastName: this.state.lastName, address: this.state.address,
-         password: this.state.password, email: this.state.emailadress})
+         paswword: this.state.password, email: this.state.emailadress})
             .then(response =>
             {
                 if (response.data.id !== 0) {
@@ -88,7 +88,7 @@ export class Register extends Component {
         })
             .catch(error => {
                 console.log(error)
-                alert("Login Failed.")
+                alert("register failed")
             })
             
       }
@@ -101,11 +101,11 @@ export class Register extends Component {
     render() {
         return (
 <Form onSubmit={this.RegisterUser}>
-      <Row form>
+      <Row>
         <Col md={6}>
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
-            <Input onChange={this.handleInputChange } type="email" name="emailadress" id="exampleEmail" placeholder="with a placeholder" />
+            <Input data-testid="email" onChange={this.handleInputChange } type="email" name="emailadress" id="exampleEmail" placeholder="with a placeholder" />
             {this.state.emailError ? (
                       <Label style={{color: 'red'}}>{}</Label>
             ): null}
@@ -114,18 +114,18 @@ export class Register extends Component {
         <Col md={6}>
           <FormGroup>
             <Label for="FirstName">First name</Label>
-            <Input onChange={this.handleInputChange } type="FirstName" name="firstName" id="FirstName" placeholder="First name" />
+            <Input data-testid="firstname" onChange={this.handleInputChange } type="FirstName" name="firstName" id="FirstName" placeholder="First name" />
             {this.state.firstNameError ? (
                       <Label style={{color: 'red'}}>{this.state.firstNameError}</Label>
             ): null}
           </FormGroup>
         </Col>
       </Row>
-      <Row form>
+      <Row>
         <Col md={6}>
           <FormGroup>
             <Label for="LastName">Last name</Label>
-            <Input onChange={this.handleInputChange } type="text" name="lastName" id="LastName" placeholder="Last name"/>
+            <Input data-testid="lastname" onChange={this.handleInputChange } type="text" name="lastName" id="LastName" placeholder="Last name"/>
             {this.state.lastNameError ? (
                       <Label style={{color: 'red'}}>{this.state.lastNameError}</Label>
             ): null}
@@ -142,7 +142,7 @@ export class Register extends Component {
         <Label for="exampleAddress">Address</Label>
         <Input onChange={this.handleInputChange } type="text" name="address" id="exampleAddress" placeholder="1234 Main St"/>
       </FormGroup>
-      <Row form>
+      <Row>
         <Col md={6}>
           <FormGroup>
             <Label for="Username">Username</Label>
@@ -151,7 +151,7 @@ export class Register extends Component {
         </Col>
         <Col md={2}>
           <FormGroup>
-            <Label for="Password">Password</Label>
+            <Label data-testid="password" for="Password">Password</Label>
             <Input onChange={this.handleInputChange } type="password" name="password" id="Password"/>
             {this.state.passwordError ? (
                       <Label style={{color: 'red'}}>{this.state.passwordError}</Label>

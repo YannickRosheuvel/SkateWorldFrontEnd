@@ -1,6 +1,6 @@
-import React, { Component, Redirect } from 'react';
+import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import './NavMenu.css';
 
 class NavMenu extends Component {
@@ -17,14 +17,16 @@ class NavMenu extends Component {
 
   CheckUser(props){
     if(localStorage.getItem("user") === null){
-      this.props.history.push('./Login')
+      return <Redirect to='./Login'  />
     }
-    console.log(localStorage.getItem("user"));
-    console.log(props);
   }
 
   componentDidMount() {
-    this.CheckUser();
+  }
+
+  logout(){
+    localStorage.clear();
+    return <Redirect to='./Login'  />
   }
 
   toggleNavbar () {
@@ -36,7 +38,7 @@ class NavMenu extends Component {
   render () {
     return (
       <header>
-        <Navbar onClick={this.CheckUser} className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
             <NavbarBrand tag={Link} to="/">SkateWorld</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -49,10 +51,10 @@ class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/courses">Courses</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/Chat">Comment Section</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/Chat">Comment Section</NavLink>
+                <NavLink tag={Link} className="text-dark" onClick={this.logout}>Logout</NavLink>
                 </NavItem>
               </ul>
             </Collapse>

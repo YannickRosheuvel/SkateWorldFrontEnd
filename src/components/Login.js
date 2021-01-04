@@ -31,6 +31,7 @@ export class Login extends Component {
                 if (response.data.id !== 0) {
                     localStorage.setItem('user', response.data.id);
                     alert("Login succesfull!")
+                    this.props.history.push('./')
                 }
                 else{
                     alert("login failed, please try again.")
