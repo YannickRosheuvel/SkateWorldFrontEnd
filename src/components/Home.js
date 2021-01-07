@@ -1,7 +1,5 @@
 import React, { Component, useContext, Redirect } from 'react';
-import { UserContext } from './UserContext';
-import {HomeInfo} from './HomeInfo';
-import {UserLoggedCheck} from './UserLoggedCheck';
+import { Jumbotron, Button } from 'reactstrap';
 
 export class Home extends Component {
 
@@ -9,6 +7,8 @@ export class Home extends Component {
         super(props);
         this.state = { firstname: '', lastname: '', loading: true, error: false};
     }
+
+    
 
     componentDidMount() {
         this.getLoggedUser();
@@ -29,11 +29,17 @@ export class Home extends Component {
         console.log(firstname);
         console.log(lastname);
         return (
-                <thead>
-                    <tr>
-                        <h1 data-testid="welcome" >Welcome back {firstname} {lastname}</h1>
-                    </tr>
-                </thead>
+                    <div>
+                    <Jumbotron>
+                      <h1 className="display-3">Welcome back, {firstname} {lastname}</h1>
+                      <p className="lead">This is Skateworld! made by skateboarders, for skateboarders</p>
+                      <hr className="my-2" />
+                      <p></p>
+                      <p className="lead">
+                        <Button color="primary">Learn More</Button>
+                      </p>
+                    </Jumbotron>
+                  </div>
         );
     }
 

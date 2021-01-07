@@ -29,7 +29,7 @@ const ChatInput = (props) => {
     return (
         <form 
             onSubmit={onSubmit}>
-            <label htmlFor="message">Message:</label>
+            <label htmlFor="message">Comment section:</label>
             <br />
             <input data-testid="message"
                 class="form-control"

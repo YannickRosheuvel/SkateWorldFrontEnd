@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
-import { Redirect, useHistory } from 'react-router-dom'
 import axios from 'axios';
 import Chat from './Chat';
+import { Jumbotron, Container } from 'reactstrap';
 
 export class CourseDetails extends Component {
     static displayName = CourseDetails.name;
@@ -46,7 +46,7 @@ export class CourseDetails extends Component {
 
                 this.xp();
                 
-                axios.put('https://localhost:44355/api/course/' + this.props.match.params.id + '/complete')
+                axios.put('https://localhost:44355/api/course/' + localStorage.getItem("user") + '/course/' + this.props.match.params.id + '/complete')
                     .then(response =>
                     {
                     console.log(response)
@@ -78,7 +78,12 @@ export class CourseDetails extends Component {
                 <h1 id="tabelLabel" >{course.name}</h1>
                 <hr></hr>
                 <ReactPlayer width='370px' height='205px' controls url={tricks[this.state.trickNumber].videoPath} />
-                <em>{tricks[this.state.trickNumber].description}</em>
+                <p></p>
+                <Jumbotron fluid>
+                    <Container fluid>
+                        <p className="lead">{tricks[this.state.trickNumber].description}</p>
+                    </Container>
+                </Jumbotron>
                 <hr></hr>
             </div>
         )
@@ -95,8 +100,8 @@ export class CourseDetails extends Component {
             <form>
                 {contents}
                 <Chat></Chat>
-                <button type="button" onClick={this.previousTrick} class="btn btn-outline-primary">Previous trick</button>
-                <button type="button" onClick={this.nextTrick} class="btn btn-outline-primary" >{this.state.buttonText}</button>
+                <button align="left" type="button" onClick={this.previousTrick} class="btn btn-outline-primary">Previous trick</button>
+                <button  type="button" onClick={this.nextTrick} class="btn btn-outline-primary float-right" >{this.state.buttonText}</button>
             </form>
         );
     }

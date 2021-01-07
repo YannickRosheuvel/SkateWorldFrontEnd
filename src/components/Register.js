@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Row,Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 const initialState ={
@@ -46,12 +46,19 @@ export class Register extends Component {
         passwordError = "Password is not long enough"
       }
 
+      if(this.state.password != this.state.repeatpassword){
+        repeatpasswordError = "passwords do not match"
+      }
+
       if (firstNameError || lastNameError || passwordError){
         this.setState({firstNameError});
         this.setState({lastNameError});
         this.setState({passwordError});
+        this.setState({repeatpasswordError});
         return false;
       }
+
+
 
 
       if (lastNameError){
@@ -116,7 +123,9 @@ export class Register extends Component {
             <Label for="FirstName">First name</Label>
             <Input data-testid="firstname" onChange={this.handleInputChange } type="FirstName" name="firstName" id="FirstName" placeholder="First name" />
             {this.state.firstNameError ? (
-                      <Label style={{color: 'red'}}>{this.state.firstNameError}</Label>
+                    <Alert color="warning">
+                    {this.state.firstNameError}
+                  </Alert>
             ): null}
           </FormGroup>
         </Col>
@@ -127,7 +136,9 @@ export class Register extends Component {
             <Label for="LastName">Last name</Label>
             <Input data-testid="lastname" onChange={this.handleInputChange } type="text" name="lastName" id="LastName" placeholder="Last name"/>
             {this.state.lastNameError ? (
-                      <Label style={{color: 'red'}}>{this.state.lastNameError}</Label>
+                                  <Alert color="warning">
+                                  {this.state.lastNameError}
+                                </Alert>
             ): null}
           </FormGroup>
         </Col>
@@ -154,7 +165,9 @@ export class Register extends Component {
             <Label data-testid="password" for="Password">Password</Label>
             <Input onChange={this.handleInputChange } type="password" name="password" id="Password"/>
             {this.state.passwordError ? (
-                      <Label style={{color: 'red'}}>{this.state.passwordError}</Label>
+                                                <Alert color="warning">
+                                                {this.state.passwordError}
+                                              </Alert>
             ): null}
           </FormGroup>  
         </Col>
@@ -162,6 +175,11 @@ export class Register extends Component {
           <FormGroup>
             <Label for="Password">Repeat password</Label>
             <Input onChange={this.handleInputChange } type="password" name="repeatpassword" id="repeatpassword"/>
+            {this.state.lastNameError ? (
+                                  <Alert color="warning">
+                                  {this.state.repeatpasswordError}
+                                </Alert>
+            ): null}
           </FormGroup>  
         </Col>
       </Row>
