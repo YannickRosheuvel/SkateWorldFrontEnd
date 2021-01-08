@@ -21,6 +21,3 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- script: |
-    npm test a
-  displayName: 'test frontend'
